@@ -89,3 +89,28 @@
   (setq dired-recursive-copies (quote always))
   (setq dired-recursive-deletes (quote top)))
 
+;; ----------------------------------------------------------------------------
+;; minibuffer config
+(progn
+  (savehist-mode 1)
+  (setq enable-recursive-minibuffers t
+        max-mini-window-height 0.5))
+  
+  
+
+;; ----------------------------------------------------------------------------
+;; icomplete
+(use-package icomplete
+  :config
+  (icomplete-mode 1)
+  (setq icomplete-separator "\n"
+	icomplete-hide-common-prefix nil
+	icomplete-in-buffer t))
+
+;; ----------------------------------------------------------------------------
+;; Seleciton
+(delete-selection-mode 1)
+
+;; ----------------------------------------------------------------------------
+;; indentation
+(setq-default tab-width 4)
