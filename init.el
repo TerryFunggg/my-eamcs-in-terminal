@@ -70,6 +70,7 @@
 (global-set-key (kbd "C-x C-3") #'split-window-right)
 (global-set-key (kbd "C-x C-0") #'delete-window)
 (global-set-key (kbd "C-t") #'hippie-expand)
+(global-set-key (kbd "C-x v") 'scroll-down-command)
 
 ;; ----------------------------------------------------------------------------
 ;; ido
@@ -144,6 +145,14 @@
         ;; try-expand-list
         ;; try-expand-line
 		))
+
+;; ----------------------------------------------------------------------------
+;; electric
+(electric-pair-mode 1)
+(setq electric-pair-pairs
+      '(
+        (?\" . ?\")
+        (?\{ . ?\})))
 
 ;; ----------------------------------------------------------------------------
 ;; abv.
