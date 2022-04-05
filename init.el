@@ -1,6 +1,11 @@
 ;; -*- coding: utf-8; -*-
 
 (setq inhibit-startup-screen t)
+;; set bookmark as startup
+(require 'bookmark)
+(list-bookmarks)
+(switch-to-buffer "*Bookmark List*")
+(setq bookmark-save-flag 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; ----------------------------------------------------------------------------
@@ -17,7 +22,8 @@
 ;; ----------------------------------------------------------------------------
 ;; Backup file config
 (setq make-backup-files nil)
-(setq auto-save-default nil)
+(setq
+ auto-save-default nil)
 (setq backup-by-copying t)
 (setq create-lockfiles nil)
 (setq auto-save-default nil)
@@ -63,6 +69,7 @@
 (global-set-key (kbd "C-x C-2") #'split-window-below)
 (global-set-key (kbd "C-x C-3") #'split-window-right)
 (global-set-key (kbd "C-x C-0") #'delete-window)
+(global-set-key (kbd "C-t") #'hippie-expand)
 
 ;; ----------------------------------------------------------------------------
 ;; ido
@@ -71,10 +78,10 @@
   (ido-mode 1)
   (ido-everywhere 1)
   ;; show result vertically
-  (setf (nth 2 ido-decorations) "\n")
+  ;; (setf (nth 2 ido-decorations) "\n")
   (setq resize-mini-widows t
-	ido-use-virtual-buffers t
-	ido-auto-merge-work-directories-length -1
+	;;ido-use-virtual-buffers t
+	;;ido-auto-merge-work-directories-length -1
 	ido-enable-flex-matching t))
 
 ;; ----------------------------------------------------------------------------
@@ -103,7 +110,8 @@
 (use-package icomplete
   :config
   (icomplete-mode 1)
-  (setq icomplete-separator "\n"
+  (setq
+   ;;icomplete-separator "\n"
 	icomplete-hide-common-prefix nil
 	icomplete-in-buffer t))
 
@@ -114,3 +122,40 @@
 ;; ----------------------------------------------------------------------------
 ;; indentation
 (setq-default tab-width 4)
+
+;; ----------------------------------------------------------------------------
+;; recentf
+(use-package recentf
+  :config
+  (recentf-mode 1))
+
+;; ----------------------------------------------------------------------------
+;; hippie-expand
+(setq hippie-expand-try-functions-list
+      '(
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        ;; try-expand-dabbrev-from-kill
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol
+        try-complete-file-name-partially
+        try-complete-file-name
+        ;; try-expand-all-abbrevs
+        ;; try-expand-list
+        ;; try-expand-line
+		))
+
+;; ----------------------------------------------------------------------------
+;; abv.
+(defalias 'dw 'kill-word)
+(defalias 'mk 'set-mark-command)
+(defalias 'hl 'highlight-symbol-at-point)
+(defalias 'uhl 'unhighlight-regexp)
+(defalias 'eb 'end-of-buffer)
+(defalias 'bb 'beginning-of-buffer)
+(defalias 'll 'list-matching-lines)
+(defalias 'dll 'delete-matching-lines)
+(defalias 'cut 'kill-region)
+(defalias 'copy 'kill-ring-save)
+(defalias 'list-buffers 'ibuffer)
+
