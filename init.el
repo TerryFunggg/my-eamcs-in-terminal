@@ -1,5 +1,5 @@
 ;; -*- coding: utf-8; -*-
-
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (setq inhibit-startup-screen t)
 ;; set bookmark as startup
 (require 'bookmark)
@@ -71,7 +71,8 @@
 (global-set-key (kbd "C-x C-0") #'delete-window)
 (global-set-key (kbd "C-t") #'hippie-expand)
 (global-set-key (kbd "C-x v") 'scroll-down-command)
-
+(global-set-key (kbd "C-x :") 'goto-line)
+(global-set-key (kbd "C-x o") 'ace-window)
 ;; ----------------------------------------------------------------------------
 ;; ido
 (use-package ido
@@ -153,6 +154,12 @@
       '(
         (?\" . ?\")
         (?\{ . ?\})))
+
+;; ----------------------------------------------------------------------------
+;; ace-window
+(use-package ace-window
+  :config
+  (setq aw-dispatch-always t))
 
 ;; ----------------------------------------------------------------------------
 ;; abv.
