@@ -73,6 +73,7 @@
 (global-set-key (kbd "C-x v") 'scroll-down-command)
 (global-set-key (kbd "C-x :") 'goto-line)
 (global-set-key (kbd "C-x o") 'ace-window)
+(global-set-key (kbd "C-x j") 'avy-goto-char-timer)
 ;; ----------------------------------------------------------------------------
 ;; ido
 (use-package ido
@@ -160,6 +161,11 @@
 (use-package ace-window
   :config
   (setq aw-dispatch-always t))
+
+;; ----------------------------------------------------------------------------
+;; avy-jump
+(use-package avy)
+  
 
 ;; ----------------------------------------------------------------------------
 ;; abv.
