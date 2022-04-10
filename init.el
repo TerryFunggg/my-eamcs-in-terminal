@@ -63,18 +63,6 @@
   (load-theme 'monokai t))
 
 ;; ----------------------------------------------------------------------------
-;; Keys
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key (kbd "C-x C-1") #'delete-other-windows)
-(global-set-key (kbd "C-x C-2") #'split-window-below)
-(global-set-key (kbd "C-x C-3") #'split-window-right)
-(global-set-key (kbd "C-x C-0") #'delete-window)
-(global-set-key (kbd "C-t") #'hippie-expand)
-(global-set-key (kbd "C-x v") 'scroll-down-command)
-(global-set-key (kbd "C-x :") 'goto-line)
-(global-set-key (kbd "C-x o") 'ace-window)
-(global-set-key (kbd "C-x j") 'avy-goto-char-timer)
-;; ----------------------------------------------------------------------------
 ;; ido
 (use-package ido
   :config
@@ -166,6 +154,18 @@
 ;; avy-jump
 (use-package avy)
   
+;; ----------------------------------------------------------------------------
+;; Keys
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key (kbd "C-x C-1") #'delete-other-windows)
+(global-set-key (kbd "C-x C-2") #'split-window-below)
+(global-set-key (kbd "C-x C-3") #'split-window-right)
+(global-set-key (kbd "C-x C-0") #'delete-window)
+(global-set-key (kbd "C-t") #'hippie-expand)
+(global-set-key (kbd "C-x v") 'scroll-down-command)
+(global-set-key (kbd "C-x :") 'goto-line)
+(global-set-key (kbd "C-x o") 'ace-window)
+(global-set-key (kbd "C-x j") 'avy-goto-char-timer)
 
 ;; ----------------------------------------------------------------------------
 ;; abv.
