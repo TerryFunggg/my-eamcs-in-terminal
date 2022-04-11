@@ -58,10 +58,12 @@
 
 ;; ----------------------------------------------------------------------------
 ;; Theme
-(use-package monokai-theme
+;;(use-package monokai-theme
+;;  :config
+;;  (load-theme 'monokai t))
+(use-package leuven-theme
   :config
-  (load-theme 'monokai t))
-
+  (load-theme 'leuven t))
 ;; ----------------------------------------------------------------------------
 ;; ido
 (use-package ido
@@ -153,7 +155,82 @@
 ;; ----------------------------------------------------------------------------
 ;; avy-jump
 (use-package avy)
-  
+
+;; ----------------------------------------------------------------------------
+(use-package htmlize
+  :ensure t)
+
+;; ----------------------------------------------------------------------------
+;; org mode config
+(use-package org
+  :init
+  (require 'ox)
+  (setq my/org-agenda-directory "~/Documents/org-agenda/"
+		org-directory "~/Documents/org"
+		org-agenda-files (list (concat my/org-agenda-directory "next.org")
+                               (concat my/org-agenda-directory "inbox.org")
+                               (concat my/org-agenda-directory "repeaters.org")
+                               (concat my/org-agenda-directory "projects.org"))
+		
+		org-hide-emphasis-markers t
+		org-export-with-smart-quotes t
+		org-html-coding-system 'utf-8-unix
+		org-agenda-exporter-settings
+		'((ps-number-of-columns 2)
+          (ps-landscape-mode t)
+          (org-agenda-add-entry-text-maxlines 5)
+          (htmlize-output-type 'css))
+        ;;org-agenda-span 'day
+		;;        org-agenda-start-day "+0d"
+
+		;; some keywords setting
+		org-todo-keywords '((sequencep "TODO(t)" "NEXT(n)" "|" "DONE(d)" "HOLD(h)"))
+		org-tag-alist (quote (("@home" . ?h)
+                              ("@office" . ?o)
+                              ("book" . ?b)
+                              ("websit" . ?w)
+                              ("video" . ?v)
+                              ("repeat"  . ?r)
+                              ("project" . ?p)))
+		;; template
+		org-capture-templates
+        '(("i" "Inbox" entry (file "~/Documents/org/inbox.org")
+           "* TODO %?")
+          ("q" "Quick Note" entry (file "~/Documents/org/Drafts.org")
+           "* %?\n %T\n "))		
+		;; custom agenda
+		org-agenda-custom-commands
+        '(("p" "Agenda"
+           ((agenda ""
+                    ((org-agenda-span 'day)))
+            (todo "NEXT"
+               ((org-agenda-overriding-header "In Progress")
+                (org-agenda-files (list
+                                   (concat my/org-agenda-directory "projects.org")
+                                   (concat my/org-agenda-directory "next.org")))))
+            (todo "TODO"
+               ((org-agenda-overriding-header "Projects")
+                (org-agenda-files (list (concat my/org-agenda-directory "projects.org")))))
+            (todo "TODO"
+               ((org-agenda-overriding-header "One-off Tasks")
+                (org-agenda-files (list (concat my/org-agenda-directory "next.org")))
+                (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline 'scheduled))))
+            (todo "TODO"
+               ((org-agenda-overriding-header "To Refile")
+                (org-agenda-files (list (concat my/org-agenda-directory "inbox.org")))))
+            nil
+			("/home/pi/www/org-agenda/index.html"))))
+
+		org-refile-targets '(((concat my/org-agenda-directory "inbox.org") :level . 0)
+							 ((concat my/org-agenda-directory "next.org") :level . 0)
+							 ((concat my/org-agenda-directory "done.org") :level .0))))
+
+          ;; ("p" "Post" plain
+          ;;       (file create-blog-post)
+          ;;       (file "~/.doom.d/post.orgcaptmpl"))
+	  
+
+
 ;; ----------------------------------------------------------------------------
 ;; Keys
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -166,6 +243,7 @@
 (global-set-key (kbd "C-x :") 'goto-line)
 (global-set-key (kbd "C-x o") 'ace-window)
 (global-set-key (kbd "C-x j") 'avy-goto-char-timer)
+(global-set-key (kbd "C-x C-a") 'org-agenda)
 
 ;; ----------------------------------------------------------------------------
 ;; abv.
@@ -181,3 +259,7 @@
 (defalias 'copy 'kill-ring-save)
 (defalias 'list-buffers 'ibuffer)
 
+(defun my/save-agenda-view (&optional arg)
+  (interactive "P")
+  (org-agenda arg "p")
+  (org-store-agenda-views))
